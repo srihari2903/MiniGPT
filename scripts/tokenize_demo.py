@@ -8,13 +8,17 @@ preprocessed = re.split(r'([,.?!_"()\']|--|\s)', raw_text)
 preprocessed = [item.strip() for item in preprocessed if item.strip()]
 
 all_words = sorted(list(set(preprocessed)))
+all_words.extend(["<|endoftext|>", "<|unk|>"])
 
 vocab = {token:integer for integer,token in enumerate(all_words)}
 
 tokenizer = SimpleTokenizerV1(vocab)
 
-text = """It's the last the painted, you know," Mrs. Gisburn said"""
+text = """It's Hello the last the painted, you know," Mrs. Gisburn said"""
 ids = tokenizer.encode(text)
+
+for i, item in enumerate(list(vocab.items())[-5:]):
+    print(item)
 
 print(ids)
 print(tokenizer.decode(ids))
